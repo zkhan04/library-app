@@ -1,10 +1,9 @@
-let bookCollection = document.querySelector('.book-collection');
-let bookForm = document.querySelector('form');
-
-let titleField = document.querySelector('#title-input');
-let authorField = document.querySelector('#author-input');
-let pagesField = document.querySelector('#pages-input');
-let readCheckbox = document.querySelector('#read-input');
+const bookCollection = document.querySelector('.book-collection');
+const bookForm = document.querySelector('form');
+const titleField = document.querySelector('#title-input');
+const authorField = document.querySelector('#author-input');
+const pagesField = document.querySelector('#pages-input');
+const readCheckbox = document.querySelector('#read-input');
 
 bookForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -31,6 +30,7 @@ function Book(title, author, pages, read) {
 function addBook(book) {
     let bookCard = document.createElement('div');
     bookCard.classList.add('book');
+
     let titleElement = document.createElement('div');
     titleElement.textContent = book.title;
     titleElement.classList.add('title');
@@ -49,9 +49,20 @@ function addBook(book) {
         bookCard.classList.add('unread');
     }
 
+    let newReadDiv = document.createElement('div');
+    let newReadLabel = document.createElement('label');
+    newReadLabel.textContent = 'Read: '
+    let newReadBox = document.createElement('input');
+    newReadBox.type = 'checkbox';
+    newReadBox.classList.add('read-box');
+
+    newReadDiv.appendChild(newReadLabel);
+    newReadDiv.appendChild(newReadBox);
+
     bookCard.appendChild(titleElement);
     bookCard.appendChild(authorElement);
     bookCard.appendChild(pagesElement);
+    bookCard.appendChild(newReadDiv);
     bookCollection.appendChild(bookCard);
 }
 
