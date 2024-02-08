@@ -1,0 +1,75 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    display: flex;
+    background-color: black;
+}
+
+.sidebar {
+    min-width: 400px;
+    background-color: rgb(65, 65, 65);
+    color: white;
+    font-size: 20px;
+}
+
+.book-collection {
+    padding: 20px;
+    height: 100% - 20px;
+    width: 100%;
+    flex: 1;
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fit, 250px);
+    grid-auto-rows: 400px;
+    overflow: scroll;
+}
+
+.book {
+    background-color: black;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 20px;
+    padding: 20px;
+    color: white;
+
+    display: grid;
+    grid: 7fr 1fr 1fr 1fr / 1fr;
+    
+    .title {
+        align-self: center;
+        text-align: center;
+        font-size: 1.5em;
+        text-decoration: underline;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+
+    .author::before {
+        content: 'Author: ';
+        font-style: italic;
+    }
+
+    .pages::before {
+        content: 'Pages: ';
+        font-style: italic;
+    }
+}
+
+.book.read {
+    border-color: lightgreen;
+    box-shadow: 5px 5px 15px lightgreen;
+}
+
+.book.unread {
+    border-color: red;
+    box-shadow: 5px 5px 15px red;
+}
