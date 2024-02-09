@@ -42,7 +42,7 @@ body {
     color: white;
 
     display: grid;
-    grid: 7fr 1fr 1fr 1fr / 1fr;
+    grid: 7fr 1fr 1fr 1fr 1fr/ 1fr;
     
     .title {
         align-self: center;
@@ -61,6 +61,16 @@ body {
     .pages::before {
         content: 'Pages: ';
         font-style: italic;
+    }
+
+    .remove-button {
+        background-color: black;
+        border-color: white;
+        color: white;
+        border-style: solid;
+        border-radius: 10px;
+        justify-self: center;
+        padding: 5px;
     }
 }
 

@@ -4,6 +4,7 @@ const titleField = document.querySelector('#title-input');
 const authorField = document.querySelector('#author-input');
 const pagesField = document.querySelector('#pages-input');
 const readCheckbox = document.querySelector('#read-input');
+const readBox = document.querySelectorAll('.read-box');
 
 bookForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -13,11 +14,9 @@ bookForm.addEventListener('submit', (e) => {
     let pages = parseInt(pagesField.value);
     let read = readCheckbox.checked;
 
-    console.log(title + ' ' + author + ' ' + pages + ' ' + read);
-
     let book = new Book(title, author, pages, read);
+    myLibrary.concat(book);
     addBook(book);
-
 })
 
 function Book(title, author, pages, read) {
@@ -27,44 +26,76 @@ function Book(title, author, pages, read) {
     this.read = read;
 }
 
+const myLibrary = [new Book('Brave New World', 'Aldous Huxley', 215, true)];
+
 function addBook(book) {
+    // creating elements for book card, title, author and pages
     let bookCard = document.createElement('div');
-    bookCard.classList.add('book');
-
     let titleElement = document.createElement('div');
-    titleElement.textContent = book.title;
-    titleElement.classList.add('title');
-
-    let authorElement = document.createElement('div')
-    authorElement.textContent = book.author;
-    authorElement.classList.add('author');
-
+    let authorElement = document.createElement('div');
     let pagesElement = document.createElement('div');
-    pagesElement.textContent = book.pages;
-    pagesElement.classList.add('pages');
-
-    if (book.read) {
-        bookCard.classList.add('read')
-    } else {
-        bookCard.classList.add('unread');
-    }
-
     let newReadDiv = document.createElement('div');
     let newReadLabel = document.createElement('label');
-    newReadLabel.textContent = 'Read: '
     let newReadBox = document.createElement('input');
     newReadBox.type = 'checkbox';
+    let removeButton = document.createElement('button');
+
+    // setting text content
+    titleElement.textContent = book.title;
+    authorElement.textContent = book.author;
+    pagesElement.textContent = book.pages;
+    newReadLabel.textContent = 'Read: ';
+    removeButton.textContent = 'Remove';
+
+    // adding classes for styling
+    bookCard.classList.add('book');
+    titleElement.classList.add('title');
+    authorElement.classList.add('author');
+    pagesElement.classList.add('pages');
     newReadBox.classList.add('read-box');
+    removeButton.classList.add('remove-button');
+
+    if (book.read) {
+        bookCard.classList.add('read');
+        newReadBox.checked = true;
+    } else { bookCard.classList.add('unread');}
+
+    // event handlers
+    newReadBox.addEventListener('click', e => {
+        if (book.read) {
+            book.read = false;
+            bookCard.classList.remove('read')
+            bookCard.classList.add('unread')
+        } else {
+            book.read = true;
+            bookCard.classList.remove('unread');
+            bookCard.classList.add('read');
+        }
+    })
+
+    removeButton.addEventListener('click', (e) => {
+        myLibrary.pop(book);
+        bookCollection.removeChild(bookCard);
+    })
 
     newReadDiv.appendChild(newReadLabel);
     newReadDiv.appendChild(newReadBox);
-
     bookCard.appendChild(titleElement);
     bookCard.appendChild(authorElement);
     bookCard.appendChild(pagesElement);
     bookCard.appendChild(newReadDiv);
+    bookCard.appendChild(removeButton);
     bookCollection.appendChild(bookCard);
 }
+
+function displayLibrary(){
+    myLibrary.forEach((book) => {
+        addBook(book);
+    })
+}
+
+displayLibrary();
+
 
 
 
